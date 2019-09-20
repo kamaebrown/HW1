@@ -1,0 +1,117 @@
+<html>
+<body>
+    <style>
+         h1 {color: darkcyan;font-family: sans-serif;text-align: center}
+         h2 {color: cadetblue;font-family: sans-serif;text-align: center}
+         h3 {color:darkcyan; font-family: sans-serif;text-align: center}
+         h4 {font-family: sans-serif;text-align: center}
+         h6 {font-family: sans-serif;text-align: center}
+         div{font-family: sans-serif;text-align:center}
+         button{font-family: sans-serif;text-align:center}
+    </style>
+    <h1>Don't know what workout to do?</h1>
+    <h2>Use the KB Circuit Generator!</h2>
+    <h4>What do part of your body do you want to work on today?</h4>
+    <div class="Bodyarea">    
+            <span>
+            <input name="Bodyarea" type="checkbox" value="arms"/>
+            <label for="Bodyarea">Arms</label>
+            </span> 
+        
+            <span>
+            <input name="Bodyarea" type="checkbox" value="abs"/>
+            <label for="Bodyarea">Abs</label>
+            </span>    
+        
+            <span>
+            <input name="Bodyarea" type="checkbox" value="back"/>
+            <label for="Bodyarea">Back</label>
+            </span>
+
+            <span>
+            <input name="Bodyarea" type="checkbox" value="legs"/>
+            <label for="Bodyarea">Legs</label>
+            </span>
+      
+         </div>
+         <div>
+
+             <button onclick="Generate('Bodyarea')">Tell me what to do!</button>
+        </div>    
+    <h3 id='instruction'> </h3>
+    <h3 id='instruction2'> </h3>
+    <div id='exercise1'> </div>
+    <div id='exercise2'> </div>
+    <div id='exercise3'> </div>
+    <h6 id='instruction3'> </h6>
+    <script>
+    var arms=['pushups', 'bicep curls', 'tricep dips', 'overhead press','tricep kickbacks', 'lateral raises','singlearm pushpress', 'dumbbell punch','backflys',]
+    var abs=['situps','assisted side situp','bent leg V-up','alternating toe reach','leg raise & reach','lying windshield wipers', 'russian twist','side plank dips','side plan reachthrough','mountain climbers','bicycle crunch','dead bug'];
+    var back=['row', 'underhand row','overhand row','good morning with weights','rear delt raise','stability ball back extensions','stability ball pikes','superman raises','back extensions' ];
+    var legs=['kettlebell swings','squats with press','lunges','kick series','squats', 'step-ups','doggie raises','glute bridge with kicks','bulgarian split squat','sumo bent knee deadlift'];
+    
+    //Takes in checkbox class info and triggers exercise selection
+    function Generate(yourclass){
+        //get checkbox info
+        var checkboxes = document.getElementsByName('Bodyarea');
+        console.log(checkboxes);
+        //create array with bodyparts selected
+        var selected = [];
+        for (var i=0; i<checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+            selected.push(checkboxes[i].value);
+            }
+        }
+        console.log(selected[1]);
+        console.log(eval(selected[1]));
+
+        //create one array with all exercises from bodyparts selected
+        var allexercises=[];
+        for(var j = 0; j<selected.length; j++)
+        {
+          allexercises = allexercises.concat(eval(selected[j]));
+        }
+        console.log(allexercises);
+        Randomcells(allexercises);
+
+    }
+    
+    //takes in an array of exercises and displays selection
+    function Randomcells(yourarray){
+       //generate FIRST exercise
+        //generate random number within number of cells range
+        var i = Math.floor(Math.random() * (yourarray.length));
+        //send random number to DOM
+        console.log(i);
+        //value of random cell 
+        var random1 = yourarray[i];
+        //remove cell from array so it can't be picked again
+        yourarray.splice(i,1);
+        console.log(yourarray);
+       //generate SECOND exercise
+        var j = Math.floor(Math.random() * (yourarray.length));
+        console.log(j);
+        var random2= yourarray[j];
+        yourarray.splice(j,1);
+        console.log(yourarray);
+       //generate THIRD exercise
+        var k = Math.floor(Math.random() * (yourarray.length));
+        console.log(k);
+        var random3= yourarray[k];
+       //send exercises to DOM
+        console.log(random1);
+        console.log(random2);
+        console.log(random3);
+       //Display exercises
+        document.getElementById('instruction').innerText= "Complete each exercise in the circuit";
+        document.getElementById('instruction2').innerText="Complete each circuit 3 times!";
+        document.getElementById('instruction3').innerText="don't like these? click again!";
+        document.getElementById('exercise1').innerText= "1. "+ random1;
+        document.getElementById('exercise2').innerText= "2. "+ random2;
+        document.getElementById('exercise3').innerText= "3. "+ random3;
+    }
+        
+    </script>
+        
+</body>
+</html>
